@@ -1,11 +1,13 @@
 # 同人文存档模板
 
-给自己搭一个放同人文的个人网站：杂志式排版，按 CP、系列整理作品，多章作品可以一章一页地读。**不用会写代码**，全程在网页上点点就能建好，以后在网页后台写文、改设置。网站本身免费托管，不用买服务器。
+给自己搭一个放同人文的个人网站：杂志式排版，按 CP、系列整理作品，多章作品可以一章一页地读。**不用会写代码**，全程在网页上点点就能建好，以后在网页后台写文、改设置。网站免费放在 GitHub Pages 上，不用买服务器。
 
 <p>
   <img src="docs/screenshot-home.jpg" alt="首页" width="62%">
   <img src="docs/screenshot-chapter.jpg" alt="手机上的章节页" width="28%">
 </p>
+
+在线看看效果：<https://locoda.github.io/fanfic-site-template/>
 
 模板自带三篇示例作品（鲁迅《野草》选三篇、朱自清《匆匆》《背影》，都已经进入公有领域），方便你先看看效果，正式用之前删掉就行。
 
@@ -34,39 +36,31 @@
 
 ## 准备工作
 
-只需要两个免费账号，不用装任何软件：
+只需要一个免费的 **GitHub 账号**，不用装任何软件。到 <https://github.com/signup> 注册。
 
-- **GitHub 账号**：用来存放你的网站和作品。到 <https://github.com/signup> 注册。
-- **Cloudflare 账号**：用来把网站放到网上。到 <https://dash.cloudflare.com/sign-up> 注册。
+GitHub 用来存放你的网站和作品，网站也直接放在 GitHub Pages 上，网址是 `https://<你的用户名>.github.io/<仓库名>/`。
 
-> 想用 GitHub 自带的 GitHub Pages 代替 Cloudflare 也可以，见[进阶](#用-github-pages-部署)。
+> 想用 Cloudflare Pages（可以用私有仓库，国内访问有时更稳）也可以，见[进阶](#用-cloudflare-pages-部署)。
 
 ## 第一步：复制一份自己的网站
 
 1. 登录 GitHub，打开这个模板的页面（就是你现在看的这页）。
 2. 点右上角绿色的 **Use this template**，再点 **Create a new repository**。
 3. **Repository name** 填一个英文名字，比如 `my-fanfic`。它会出现在网址里，以后改起来麻烦，建议想好再填。
-4. 选 **Public**（公开）或 **Private**（私有）都可以，网站都能正常上线。区别是：公开的话，别人在 GitHub 上也能看到你的原始文件。
+4. 选 **Public**（公开）。免费账号的 GitHub Pages 只支持公开仓库，所以别人在 GitHub 上也能看到你的原始文件。想用私有仓库，可以改用 [Cloudflare Pages](#用-cloudflare-pages-部署)。
 5. 点 **Create repository**。
 
 现在你有了一份自己的网站，之后的修改都在这一份里，不会影响模板。
 
 ## 第二步：让网站上线
 
-1. 登录 [Cloudflare](https://dash.cloudflare.com)，左边菜单选 **Workers & Pages**。
-2. 点 **Create application**，选上方的 **Pages** 标签，再点 **Import an existing Git repository**。
-3. 第一次用会让你连接 GitHub，按提示授权，允许它访问刚才建的仓库。
-4. 选中你的仓库（比如 `my-fanfic`），点 **Begin setup**。
-5. 按下面填写，其余保持默认：
-   - **Production branch**：`main`
-   - **Build command**：`npm run build`
-   - **Build output directory**：`dist`
-   - **Project name**：会变成你的网址 `<项目名>.pages.dev`，可以改成喜欢的英文名
-6. 点 **Save and Deploy**，等一两分钟。
+1. 在你的仓库页面点上方的 **Settings**，左边选 **Pages**。
+2. **Build and deployment** 下面的 **Source** 选 **GitHub Actions**。
+3. 点仓库上方的 **Actions**，左边选「部署到 GitHub Pages」，点右边的 **Run workflow** → **Run workflow**。
+   （刚建仓库时它已经自动跑过一次，那时还没打开 Pages，所以会显示失败，不用管，重新运行一次就好。）
+4. 等一两分钟，出现绿色的 ✓ 就是成功了。
 
-完成后会给你一个 `https://<项目名>.pages.dev` 的网址，打开就是你的网站。之后每次在后台保存，网站都会自动更新。
-
-> Cloudflare 的界面偶尔会调整，按钮名字可能和这里略有不同，找意思相近的就行。
+打开 `https://<你的用户名>.github.io/<仓库名>/` 就是你的网站，比如用户名是 `alice`、仓库名是 `my-fanfic`，网址就是 `https://alice.github.io/my-fanfic/`。之后每次在后台保存，网站都会自动更新。
 
 ## 第三步：打开网页后台
 
@@ -145,19 +139,19 @@
 ## 常见问题
 
 **保存之后网站没变？**
-网站要重新生成，通常一两分钟。过了很久还没变，到 Cloudflare 的 **Workers & Pages** → 你的项目 → **Deployments** 看看最新一次是不是失败了，点进去能看到原因。大多是作品里有格式问题，比如某一章没写正文，日志里会写是哪篇作品的第几章。
+网站要重新生成，通常一两分钟。过了很久还没变，到仓库的 **Actions** 页面看看最新一次「部署到 GitHub Pages」是不是红色的 ✗，点进去能看到原因。大多是作品里有格式问题，比如某一章没写正文，日志里会写是哪篇作品的第几章。
 
 **怎么删除或修改作品？**
 在后台 **作品** 列表里点开作品直接改；删除在作品右边的 ⋮ 菜单里。
 
 **能用自己的域名吗？**
-可以。在 Cloudflare 项目的 **Custom domains** 里添加你买的域名，按提示操作。国内访问 `pages.dev` 和 `github.io` 有时不太稳定，绑定自己的域名通常会好一些。
+可以。仓库 **Settings** → **Pages** → **Custom domain** 填上你买的域名，再按 GitHub 的提示到域名服务商那里设置 DNS。网址会自动跟着变，不用改别的。国内访问 `github.io` 有时不太稳定，绑定自己的域名或者改用 Cloudflare 通常会好一些。
 
 **怎么备份全部作品？**
 到 GitHub 仓库的 **Actions** 页面，左边选「导出作品」，点 **Run workflow**。几分钟后在仓库的 **Releases** 页面能下载到一个 zip，里面每篇作品一个 Markdown 文件（任何文本编辑器都能打开）。默认是草稿，只有你自己能看到；运行时选「公开」的话，所有能看到仓库的人都能下载。
 
 **网站会被搜索引擎搜到吗？**
-会的，和普通网站一样。如果只想给知道网址的人看，可以把仓库设成私有，不过网站本身仍然是公开的，知道网址就能打开。
+会的，和普通网站一样。网站本身是公开的，知道网址就能打开。
 
 **模板以后更新了，我能用上吗？**
 可以，但需要用到命令行，见[进阶](#从模板同步更新)。
@@ -269,13 +263,17 @@ updated: 2026-10-28
 - 西文：Libre Caslon Text / Display（OFL），来自 Fontsource。
 - 字体文件和网站一起部署，不依赖外部 CDN，国内也能正常加载。
 
-### 用 GitHub Pages 部署
+### 用 Cloudflare Pages 部署
 
-1. 把 `.github/workflows/deploy.yml.example` 改名为 `deploy.yml`。
-2. 改 `astro.config.mjs`：仓库叫 `<用户名>.github.io` 时 `base` 保持 `'/'`；其他仓库名设 `base: '/<仓库名>/'`；两种都加上 `site: 'https://<用户名>.github.io'`。
-3. 仓库 Settings → Pages → Source 选 **GitHub Actions**。
+Cloudflare Pages 支持私有仓库，国内访问有时也更稳。需要一个 [Cloudflare 账号](https://dash.cloudflare.com/sign-up)（免费）。
 
-之后每次推送到 main 都会自动部署。用 Cloudflare 的话不用管这个文件，它不会运行。
+1. 关掉 GitHub Pages 的自动部署：仓库 **Settings** → **Secrets and variables** → **Actions** → **Variables** 标签 → **New repository variable**，名字填 `DEPLOY`，值填 `cloudflare`。
+2. 登录 [Cloudflare](https://dash.cloudflare.com)，左边菜单选 **Workers & Pages** → **Create application** → **Pages** 标签 → **Import an existing Git repository**。
+3. 连接 GitHub，选中你的仓库，点 **Begin setup**。
+4. **Production branch** 填 `main`，**Build command** 填 `npm run build`，**Build output directory** 填 `dist`。**Project name** 会变成你的网址 `<项目名>.pages.dev`。
+5. 点 **Save and Deploy**。
+
+之后每次推送都会自动部署。部署失败时到 Cloudflare 项目的 **Deployments** 里看原因；自定义域名在项目的 **Custom domains** 里设置。
 
 ### 从模板同步更新
 
