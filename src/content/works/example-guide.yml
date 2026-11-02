@@ -21,7 +21,7 @@ chapters:
 
       要先知道的几件事：
 
-      - 免费的 GitHub Pages 要求仓库是公开的，别人在 GitHub 上能看到你的原始文件。想用私有仓库，可以改用 Cloudflare Pages（README 的「进阶」里有步骤）。
+      - 免费的 GitHub Pages 要求仓库是公开的，别人在 GitHub 上能看到你的原始文件。想用私有仓库，可以改用 Cloudflare Pages（[进阶教程](https://github.com/locoda/fanfic-site-template/blob/main/docs/advanced.md)里有步骤）。
       - 后台是英文界面，不过要点的按钮不多，下面都会写清楚。
       - 第一次设置要跟着步骤点十几下，大概半小时。之后就只是写文了。
 
@@ -121,8 +121,8 @@ chapters:
 
       ## 能用自己的域名吗？
 
-      可以。仓库 **Settings** → **Pages** → **Custom domain** 填上你的域名，再按提示去域名服务商那里设置。国内访问 github.io 有时不稳，绑自己的域名或者改用 Cloudflare 会好一些。
+      可以，GitHub Pages 和 Cloudflare Pages 都行，步骤见[进阶教程](https://github.com/locoda/fanfic-site-template/blob/main/docs/advanced.md)。国内访问 github.io 有时不稳，绑自己的域名或者改用 Cloudflare 会好一些。
 
       ## 还有问题
 
-      看模板的 [README](https://github.com/locoda/fanfic-site-template)，里面有更完整的说明。
+      看模板的 [README](https://github.com/locoda/fanfic-site-template)，里面有更完整的说明。换 Cloudflare 部署、绑域名、多人合集、跟上模板更新、改代码，见[进阶教程](https://github.com/locoda/fanfic-site-template/blob/main/docs/advanced.md)。

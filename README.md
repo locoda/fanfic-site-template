@@ -22,6 +22,7 @@
 - [一次导入很多篇](#一次导入很多篇)
 - [正文怎么写](#正文怎么写)
 - [常见问题](#常见问题)
+- [进阶教程](docs/advanced.md)：Cloudflare 部署、绑定自己的域名、更多功能、跟上模板更新、改代码
 - [进阶：给会用命令行的人](#进阶给会用命令行的人)
 
 ## 能做什么
@@ -40,14 +41,14 @@
 
 GitHub 用来存放你的网站和作品，网站也直接放在 GitHub Pages 上，网址是 `https://<你的用户名>.github.io/<仓库名>/`。
 
-> 想用 Cloudflare Pages（可以用私有仓库，国内访问有时更稳）也可以，见[进阶](#用-cloudflare-pages-部署)。
+> 想用 Cloudflare Pages（可以用私有仓库，国内访问有时更稳）也可以，见[进阶教程](docs/advanced.md#改用-cloudflare-pages-部署)。
 
 ## 第一步：复制一份自己的网站
 
 1. 登录 GitHub，打开这个模板的页面（就是你现在看的这页）。
 2. 点右上角绿色的 **Use this template**，再点 **Create a new repository**。
 3. **Repository name** 填一个英文名字，比如 `my-fanfic`。它会出现在网址里，以后改起来麻烦，建议想好再填。
-4. 选 **Public**（公开）。免费账号的 GitHub Pages 只支持公开仓库，所以别人在 GitHub 上也能看到你的原始文件。想用私有仓库，可以改用 [Cloudflare Pages](#用-cloudflare-pages-部署)。
+4. 选 **Public**（公开）。免费账号的 GitHub Pages 只支持公开仓库，所以别人在 GitHub 上也能看到你的原始文件。想用私有仓库，可以改用 [Cloudflare Pages](docs/advanced.md#改用-cloudflare-pages-部署)。
 5. 点 **Create repository**。
 
 现在你有了一份自己的网站，之后的修改都在这一份里，不会影响模板。
@@ -181,7 +182,7 @@ GitHub 用来存放你的网站和作品，网站也直接放在 GitHub Pages �
 在后台 **作品** 列表里点开作品直接改；删除在作品右边的 ⋮ 菜单里。
 
 **能用自己的域名吗？**
-可以。仓库 **Settings** → **Pages** → **Custom domain** 填上你买的域名，再按 GitHub 的提示到域名服务商那里设置 DNS。网址会自动跟着变，不用改别的。国内访问 `github.io` 有时不太稳定，绑定自己的域名或者改用 Cloudflare 通常会好一些。
+可以，GitHub Pages 和 Cloudflare Pages 都行，步骤见[进阶教程：绑定自己的域名](docs/advanced.md#绑定自己的域名)。国内访问 `github.io` 有时不太稳定，绑定自己的域名或者改用 Cloudflare 通常会好一些。
 
 **怎么备份全部作品？**
 到 GitHub 仓库的 **Actions** 页面，左边选「导出作品」，点 **Run workflow**。几分钟后在仓库的 **Releases** 页面能下载到一个 zip，里面每篇作品一个 Markdown 文件（任何文本编辑器都能打开）。默认是草稿，只有你自己能看到；运行时选「公开」的话，所有能看到仓库的人都能下载。
@@ -190,7 +191,10 @@ GitHub 用来存放你的网站和作品，网站也直接放在 GitHub Pages �
 会的，和普通网站一样。网站本身是公开的，知道网址就能打开。
 
 **模板以后更新了，我能用上吗？**
-可以，但需要用到命令行，见[进阶](#从模板同步更新)。
+可以，但需要用到命令行（或者交给 AI），见[进阶教程：跟上模板的更新](docs/advanced.md#跟上模板的更新)。
+
+**想改样式、加功能？**
+见[进阶教程：改代码](docs/advanced.md#改代码二次开发入门)，不会写代码的话可以让 AI 帮你改。
 
 ---
 
@@ -323,34 +327,9 @@ updated: 2026-10-28
 - 西文：Libre Caslon Text / Display（OFL），来自 Fontsource。
 - 字体文件和网站一起部署，不依赖外部 CDN，国内也能正常加载。
 
-### 用 Cloudflare Pages 部署
+### Cloudflare 部署、自定义域名、同步模板更新
 
-Cloudflare Pages 支持私有仓库，国内访问有时也更稳。需要一个 [Cloudflare 账号](https://dash.cloudflare.com/sign-up)（免费）。
-
-1. 在后台 **网站设置** → **网站信息** 里关掉 **部署到 GitHub Pages**，保存。想两边都有一份的话可以不关。
-2. 登录 [Cloudflare](https://dash.cloudflare.com)，左边菜单选 **Workers & Pages** → **Create application** → **Pages** 标签 → **Import an existing Git repository**。
-3. 连接 GitHub，选中你的仓库，点 **Begin setup**。
-4. **Production branch** 填 `main`，**Build command** 填 `npm run build`，**Build output directory** 填 `dist`。**Project name** 会变成你的网址 `<项目名>.pages.dev`。
-5. 点 **Save and Deploy**。
-
-之后每次推送都会自动部署。部署失败时到 Cloudflare 项目的 **Deployments** 里看原因；自定义域名在项目的 **Custom domains** 里设置。
-
-### 从模板同步更新
-
-```
-git remote add template https://github.com/locoda/fanfic-site-template.git
-git fetch template
-git merge template/main --allow-unrelated-histories   # 第一次需要这个参数，以后直接 git merge template/main
-```
-
-有冲突时，`src/site.yml`、`src/content/works/` 和你自己的 README 保留你的版本，其他文件一般用模板的版本；合并进来的示例作品（`example-*.yml`）删掉即可。想让 README 和 `site.yml` 以后自动保留你的版本，可以加一个 `.gitattributes`：
-
-```
-README.md merge=ours
-src/site.yml merge=ours
-```
-
-再运行一次 `git config merge.ours.driver true`。
+见[进阶教程](docs/advanced.md)。
 
 ## 授权
 

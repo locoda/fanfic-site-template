@@ -118,6 +118,10 @@ const { chromium } = require('playwright');
 - 不要在作品列表或后台里加重复、啰嗦的提示文字
 - 不要做 AO3 HTML 导入（做过，被删掉了）
 
-## README 和《使用说明》
+## 给用户看的三份说明
 
-`src/content/works/example-guide.yml` 是 README 教程的精简版，放在演示站上给人直接读。改了 README 里的建站、后台、写作品、批量导入、备份步骤，要同步改这篇。
+- `README.md`：从零建站、日常写作
+- `docs/advanced.md`：进阶教程（Cloudflare、自定义域名、更多功能、同步模板、二次开发入门）
+- `src/content/works/example-guide.yml`：《使用说明》，README 的精简版，放在演示站上给人直接读
+
+改了步骤或加了用户能用的功能，这三份里涉及到的都要同步改。
